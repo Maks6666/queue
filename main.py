@@ -32,9 +32,9 @@ class Line:
         temp_queue = Queue()
 
         while not self.queue.empty():
-            client = self.queue.get()
-            print(client, end=' <- ')
-            temp_queue.put(client)
+            element = self.queue.get()
+            print(element, end=' <- ')
+            temp_queue.put(element)
 
 
 line = Line()
