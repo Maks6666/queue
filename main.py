@@ -1,69 +1,28 @@
-# Створіть клас черги з пріоритетами для роботи із символьними значеннями.
-# Ви маєте створити реалізації для операцій над еле- ментами черги:
-# ■ IsEmpty — перевірка, чи черга пуста;
-# ■ IsFull — перевірка черги на заповнення;
-# ■ InsertWithPriority — додати елемент з пріоритетом у
-# чергу;
-#
-# ■ PullHighestPriorityElement — видалення елемента з найвищим пріоритетом із черги;
-# ■ Peek — повернення найбільшого за пріоритетом еле- мента. Зверніть увагу, що елемент не видаляється з черги;
-# ■ Show — відображення на екрані всіх елементів черги. Показуючи елемент, також необхідно вказати і його пріоритет.
-# На старті додатка відобразіть меню, в якому корис- тувач може вибрати необхідну операцію.
+# ресторан
 
+from queue import Queue
 
-
-from queue import PriorityQueue
-
-class Line:
+class OrderQueue:
     def __init__(self):
-        self.queue = PriorityQueue()
+        self.order_queue = Queue()
+    def add_order(self, order):
+        self.order_queue.put(order)
+        print(f"Order {order} is added to queue")
 
-    def queue_is_empty(self):
-        return self.queue.empty()
-
-    def queue_is_full(self):
-        return self.queue.full()
-
-
-    def add_element(self, element, priority):
-        self.queue.put((priority, element))
-
-    def delete_element(self):
-        if self.queue.empty():
-            print("Queue is emtpy")
-            return
-
-        priority, element = self.queue.get()
-
-        print(f'Element {element} is deleted')
-
-    def peek(self):
-        if not self.queue.empty():
-            priority, symbol = self.queue.queue[0]
-            print(f"Peek element: {symbol}")
+    def handle_orders(self):
+        if not self.order_queue.empty():
+            print("Orders handling begins:")
+            while not self.order_queue.empty():
+                order = self.order_queue.get()
+                print(f"Current order: {order}")
+            print("All orders are handled.")
         else:
-            print("Queue is empty")
+            print("Queue is empty.")
 
-    def show(self):
-        if not self.queue.empty():
-            for priority, symbol in self.queue.queue:
-                print(priority, symbol)
-        else:
-            return False
 
-line = Line()
-print(line.queue_is_empty())
-print(line.queue_is_full())
+restaurant_queue = OrderQueue()
+restaurant_queue.add_order("Pizza")
+restaurant_queue.add_order("Steak")
+restaurant_queue.add_order("Soup")
 
-line.add_element(4, "A")
-print(line.queue_is_empty())
-
-line.delete_element()
-print(line.queue_is_empty())
-
-line.add_element(1, "B")
-line.add_element(4, "A")
-print(line.peek())
-
-line.show()
-
+restaurant_queue.handle_orders()
