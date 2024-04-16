@@ -1,16 +1,55 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+# Створіть клас черги для роботи із символьними зна- ченнями. Ви маєте створити реалізації для операцій над елементами:
+# ■ IsEmpty — перевірка, чи черга пуста;
+# ■ IsFull — перевірка черги на заповнення;
+# ■ Enqueue — додати новий елемент до черги;
+# ■ Dequeue — видалення елемента з черги;
+# ■ Show — відображення на екрані всіх елементів черги.
+# На старті додатка відобразіть меню, в якому корис- тувач може вибрати необхідну операцію.
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+from queue import Queue
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+class Line:
+    def __init__(self):
+        self.queue = Queue()
+
+    def queue_is_empty(self):
+        return self.queue.empty()
+
+    def queue_is_full(self):
+        return self.queue.full()
+
+    def add_element(self, element):
+        self.queue.put(element)
+
+    def remove_element(self):
+        if not self.queue.empty():
+            return self.queue.get()
+        else:
+            return None
+
+    def print(self):
+        temp_queue = Queue()
+
+        while not self.queue.empty():
+            client = self.queue.get()
+            print(client, end=' <- ')
+            temp_queue.put(client)
+
+
+line = Line()
+print(line.queue_is_empty())
+print(line.queue_is_full())
+
+line.add_element(5)
+print(line.queue_is_empty())
+
+
+line.remove_element()
+print(line.queue_is_empty())
+
+line.add_element(3)
+line.add_element(2)
+line.remove_element()
+line.add_element(1)
+line.print()
